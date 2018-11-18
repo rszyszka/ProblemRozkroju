@@ -37,9 +37,6 @@ public class ViewController {
     /////////////////////////////////////////
 
     @FXML
-    ChoiceBox<String> widthAmount;
-
-    @FXML
     TextField width1;
 
     @FXML
@@ -63,11 +60,8 @@ public class ViewController {
                 "3"
         );
 
-        widthAmount.getItems().addAll(
-                "1",
-                "2",
-                "3"
-        );
+        materialAmount.setValue("3");
+        requiredAmount.setValue("3");
 
         materialAmount.valueProperty().addListener((observable, oldValue, newValue) -> {
             switch (newValue) {
@@ -96,35 +90,26 @@ public class ViewController {
                     amount1.setVisible(true);
                     amount2.setVisible(false);
                     amount3.setVisible(false);
-                    break;
-                case "2":
-                    amount1.setVisible(true);
-                    amount2.setVisible(true);
-                    amount3.setVisible(false);
-                    break;
 
-                case "3":
-                    amount1.setVisible(true);
-                    amount2.setVisible(true);
-                    amount3.setVisible(true);
-                    break;
-            }
-        });
-
-        widthAmount.valueProperty().addListener((observable, oldValue, newValue) -> {
-            switch (newValue) {
-                case "1":
                     width1.setVisible(true);
                     width2.setVisible(false);
                     width3.setVisible(false);
                     break;
                 case "2":
+                    amount1.setVisible(true);
+                    amount2.setVisible(true);
+                    amount3.setVisible(false);
+
                     width1.setVisible(true);
                     width2.setVisible(true);
                     width3.setVisible(false);
                     break;
 
                 case "3":
+                    amount1.setVisible(true);
+                    amount2.setVisible(true);
+                    amount3.setVisible(true);
+
                     width1.setVisible(true);
                     width2.setVisible(true);
                     width3.setVisible(true);
@@ -161,21 +146,21 @@ public class ViewController {
         return materials;
     }
 
-    private List<Double> getRequiredAmountValue(){
-        List<Double> required = new ArrayList<>();
+    private List<Integer> getRequiredAmountValue(){
+        List<Integer> required = new ArrayList<>();
         if(requiredAmount.getValue() == "1"){
-            required.add(Double.parseDouble(amount1.getText()));
+            required.add((int)Double.parseDouble(amount1.getText()));
         }
 
         if(requiredAmount.getValue() == "2"){
-            required.add(Double.parseDouble(amount1.getText()));
-            required.add(Double.parseDouble(amount2.getText()));
+            required.add((int)Double.parseDouble(amount1.getText()));
+            required.add((int)Double.parseDouble(amount2.getText()));
         }
 
         if(requiredAmount.getValue() == "3"){
-            required.add(Double.parseDouble(amount1.getText()));
-            required.add(Double.parseDouble(amount2.getText()));
-            required.add(Double.parseDouble(amount3.getText()));
+            required.add((int)Double.parseDouble(amount1.getText()));
+            required.add((int)Double.parseDouble(amount2.getText()));
+            required.add((int)Double.parseDouble(amount3.getText()));
         }
         return required;
     }
@@ -183,16 +168,16 @@ public class ViewController {
 
     private List<Double> getWidthValue(){
         List<Double> widths = new ArrayList<>();
-        if(widthAmount.getValue() == "1"){
+        if(requiredAmount.getValue() == "1"){
             widths.add(Double.parseDouble(width1.getText()));
         }
 
-        if(widthAmount.getValue() == "2"){
+        if(requiredAmount.getValue() == "2"){
             widths.add(Double.parseDouble(width1.getText()));
             widths.add(Double.parseDouble(width2.getText()));
         }
 
-        if(widthAmount.getValue() == "3"){
+        if(requiredAmount.getValue() == "3"){
             widths.add(Double.parseDouble(width1.getText()));
             widths.add(Double.parseDouble(width2.getText()));
             widths.add(Double.parseDouble(width3.getText()));

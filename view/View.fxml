@@ -6,18 +6,20 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="341.0" prefWidth="534.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ViewController">
    <children>
-      <TextField fx:id="material1" layoutX="14.0" layoutY="50.0" prefHeight="25.0" prefWidth="89.0" />
-      <TextField fx:id="material2" layoutX="14.0" layoutY="85.0" prefHeight="25.0" prefWidth="89.0" />
-      <TextField fx:id="material3" layoutX="14.0" layoutY="118.0" prefHeight="25.0" prefWidth="89.0" />
-      <TextField fx:id="amount1" layoutX="138.0" layoutY="47.0" prefHeight="25.0" prefWidth="89.0" />
-      <TextField fx:id="amount2" layoutX="138.0" layoutY="82.0" prefHeight="25.0" prefWidth="89.0" />
-      <TextField fx:id="amount3" layoutX="138.0" layoutY="115.0" prefHeight="25.0" prefWidth="89.0" />
-      <TextField fx:id="width1" layoutX="263.0" layoutY="47.0" prefHeight="25.0" prefWidth="89.0" />
-      <TextField fx:id="width2" layoutX="263.0" layoutY="82.0" prefHeight="25.0" prefWidth="89.0" />
-      <TextField fx:id="width3" layoutX="263.0" layoutY="115.0" prefHeight="25.0" prefWidth="89.0" />
-      <ChoiceBox fx:id="materialAmount" layoutX="14.0" layoutY="14.0" prefHeight="25.0" prefWidth="89.0" />
-      <ChoiceBox fx:id="requiredAmount" layoutX="138.0" layoutY="11.0" prefHeight="25.0" prefWidth="89.0" />
-      <ChoiceBox fx:id="widthAmount" layoutX="263.0" layoutY="11.0" prefHeight="25.0" prefWidth="89.0" />
-      <Button layoutX="409.0" layoutY="14.0" mnemonicParsing="false" onAction="#findSolutionAction" text="Rozwiąż" />
+      <TextField fx:id="material1" layoutX="14.0" layoutY="78.0" prefHeight="25.0" prefWidth="89.0" />
+      <TextField fx:id="material2" layoutX="14.0" layoutY="113.0" prefHeight="25.0" prefWidth="89.0" />
+      <TextField fx:id="material3" layoutX="14.0" layoutY="146.0" prefHeight="25.0" prefWidth="89.0" />
+      <TextField fx:id="amount1" layoutX="138.0" layoutY="75.0" prefHeight="25.0" prefWidth="89.0" />
+      <TextField fx:id="amount2" layoutX="138.0" layoutY="110.0" prefHeight="25.0" prefWidth="89.0" />
+      <TextField fx:id="amount3" layoutX="138.0" layoutY="143.0" prefHeight="25.0" prefWidth="89.0" />
+      <TextField fx:id="width1" layoutX="263.0" layoutY="75.0" prefHeight="25.0" prefWidth="89.0" />
+      <TextField fx:id="width2" layoutX="263.0" layoutY="110.0" prefHeight="25.0" prefWidth="89.0" />
+      <TextField fx:id="width3" layoutX="263.0" layoutY="143.0" prefHeight="25.0" prefWidth="89.0" />
+      <ChoiceBox fx:id="materialAmount" layoutX="14.0" layoutY="42.0" prefHeight="25.0" prefWidth="89.0" />
+      <ChoiceBox fx:id="requiredAmount" layoutX="138.0" layoutY="39.0" prefHeight="25.0" prefWidth="89.0" />
+      <Button layoutX="407.0" layoutY="115.0" mnemonicParsing="false" onAction="#findSolutionAction" text="Rozwiąż" />
+      <Label layoutX="14.0" layoutY="14.0" text="Ilość materiałów" />
+      <Label layoutX="138.0" layoutY="14.0" text="Ilość sztuk" />
+      <Label layoutX="263.0" layoutY="43.0" text="Szerokość sztuki" />
    </children>
 </Pane>
