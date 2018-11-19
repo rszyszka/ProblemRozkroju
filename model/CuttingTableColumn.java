@@ -6,6 +6,7 @@ import java.util.HashMap;
 public class CuttingTableColumn {
 
     private double inputTableSpec;
+    private double waste;
     private HashMap<Double,Integer> cuttingOptionsForOutputTableSpec;
 
     public CuttingTableColumn(double inputTableSpec){
@@ -19,5 +20,13 @@ public class CuttingTableColumn {
 
     public HashMap<Double, Integer> getCuttingOptionsForOutputTableSpec() {
         return cuttingOptionsForOutputTableSpec;
+    }
+
+    public double getWaste() {
+        return waste;
+    }
+
+    public void setWaste(double waste) {
+        this.waste = waste;
     }
 }

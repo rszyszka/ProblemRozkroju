@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.TreeSet;
 
 public class OutputProductTypes {
 
@@ -9,10 +10,11 @@ public class OutputProductTypes {
 
     public OutputProductTypes(ArrayList<Double> widths, ArrayList<Integer> amountsOfPieces, int size){
         this.size = size;
-        outputProducts = new ArrayList<>();
+        TreeSet<OutputProduct> sortedOutputProducts = new TreeSet<>(new ProductComparator());
         for(int i = 0; i < size; i++){
-            outputProducts.add(new OutputProduct(amountsOfPieces.get(i),widths.get(i)));
+            sortedOutputProducts.add(new OutputProduct(amountsOfPieces.get(i),widths.get(i)));
         }
+        outputProducts = new ArrayList<>(sortedOutputProducts);
     }
 
     public int getSize() {
