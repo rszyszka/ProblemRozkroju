@@ -6,8 +6,6 @@ import model.CuttingTableColumn;
 import model.OutputProductTypes;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
 
 public class ConsoleMain {
 
@@ -26,8 +24,11 @@ public class ConsoleMain {
         OutputProductTypes productTypes = new OutputProductTypes(outputProductSpec,outputProductAmount,outputProductSpec.size());
         CuttingTableBuilder cuttingTableBuilder = new CuttingTableBuilder();
         cuttingTableBuilder.buildTable(inputProductSpec,productTypes);
-        for (HashMap<Double,Integer> col : cuttingTableBuilder.getCuttings()) {
-            System.out.println(col);
+        for (CuttingTableColumn col : cuttingTableBuilder.getCuttingTable()) {
+            System.out.println(col.getCuttingOptionsForOutputTableSpec());
         }
+        /*double [] result = CuttingProblemSolver.solve(cuttingTableBuilder.cuttingTable, productTypes);
+        CuttingProblemSolver.solve(cuttingTableBuilder.cuttingTable, productTypes);
+        System.out.println("\n" + Arrays.toString(result));*/
     }
 }

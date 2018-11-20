@@ -1,20 +1,31 @@
 package model;
 
-        import java.util.*;
+import java.util.*;
 
 public class CuttingTableBuilder {
 
     private HashSet<HashMap<Double,Integer>> cuttings;
+    private ArrayList<CuttingTableColumn> cuttingTable;
 
     public CuttingTableBuilder(){
-        cuttings = new HashSet<>();
+        cuttingTable = new ArrayList<>();
     }
 
     public void buildTable(ArrayList<Double> inputProductSpec, OutputProductTypes outputProductTypes){
         for (Double inputProductWidth : inputProductSpec) {
+                cuttings = new HashSet<>();
                 HashMap<Double,Integer> map = new HashMap<>();
                 int[] actualCounters = new int[outputProductTypes.getOutputProducts().size()];
                 build(outputProductTypes,inputProductWidth, 0.0, actualCounters, map);
+
+            for(HashMap<Double,Integer> m : cuttings){
+                double sum = 0.0;
+                for(Map.Entry<Double, Integer> entry : m.entrySet()){
+                    sum += entry.getKey()*entry.getValue();
+                }
+                double waste = inputProductWidth - sum;
+                cuttingTable.add(new CuttingTableColumn(m,inputProductWidth,waste));
+            }
         }
     }
 
@@ -43,7 +54,7 @@ public class CuttingTableBuilder {
         return checker;
     }
 
-    public HashSet<HashMap<Double, Integer>> getCuttings() {
-        return cuttings;
+    public ArrayList<CuttingTableColumn> getCuttingTable() {
+        return cuttingTable;
     }
 }

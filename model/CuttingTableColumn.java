@@ -1,6 +1,5 @@
 package model;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class CuttingTableColumn {
@@ -9,9 +8,10 @@ public class CuttingTableColumn {
     private double waste;
     private HashMap<Double,Integer> cuttingOptionsForOutputTableSpec;
 
-    public CuttingTableColumn(double inputTableSpec){
+    public CuttingTableColumn(HashMap<Double,Integer> map, double inputTableSpec, double waste){
         this.inputTableSpec = inputTableSpec;
-        cuttingOptionsForOutputTableSpec = new HashMap<>();
+        cuttingOptionsForOutputTableSpec = new HashMap<>(map);
+        this.waste = waste;
     }
 
     public double getInputTableSpec() {
@@ -24,9 +24,5 @@ public class CuttingTableColumn {
 
     public double getWaste() {
         return waste;
-    }
-
-    public void setWaste(double waste) {
-        this.waste = waste;
     }
 }
