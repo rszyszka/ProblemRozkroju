@@ -168,8 +168,7 @@ public class ViewController {
                 textArea.appendText("STRATY: " + Math.round(column.getWaste()*100.0)/100.0 + "\n\n");
         }
     }
-
-
+    
     private ArrayList<Double> getMaterialValue(){
         ArrayList<Double> materials = new ArrayList<>();
         if(materialAmount.getValue() == "1"){
