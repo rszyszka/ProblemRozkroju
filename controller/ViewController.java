@@ -1,6 +1,6 @@
+/*
 package controller;
 
-import com.jakewharton.fliptables.FlipTable;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextArea;
@@ -8,9 +8,7 @@ import javafx.scene.control.TextField;
 import model.CuttingTableBuilder;
 import model.CuttingTableColumn;
 import model.OutputProductTypes;
-
 import java.util.ArrayList;
-import java.util.List;
 
 public class ViewController {
 
@@ -226,3 +224,4 @@ public class ViewController {
         return widths;
     }
 }
+*/

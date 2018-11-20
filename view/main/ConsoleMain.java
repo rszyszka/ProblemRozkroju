@@ -1,10 +1,13 @@
 package view.main;
 
+import model.CuttingProblemSolver;
 import model.CuttingTableBuilder;
 import model.CuttingTableColumn;
 import model.OutputProductTypes;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 
 public class ConsoleMain {
 
@@ -23,13 +26,8 @@ public class ConsoleMain {
         OutputProductTypes productTypes = new OutputProductTypes(outputProductSpec,outputProductAmount,outputProductSpec.size());
         CuttingTableBuilder cuttingTableBuilder = new CuttingTableBuilder();
         cuttingTableBuilder.buildTable(inputProductSpec,productTypes);
-
-        for (CuttingTableColumn column: cuttingTableBuilder.cuttingTable) {
-            System.out.print(column.getInputTableSpec()+"\t");
-            for (int i = 0; i < column.getCuttingOptionsForOutputTableSpec().size(); i++){
-                System.out.println(column.getCuttingOptionsForOutputTableSpec().toString() +"waste: "+column.getWaste());
-            }
+        for (HashMap<Double,Integer> col : cuttingTableBuilder.getCuttings()) {
+            System.out.println(col);
         }
-
     }
 }

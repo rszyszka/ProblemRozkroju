@@ -1,54 +1,49 @@
 package model;
 
-        import java.util.ArrayList;
+        import java.util.*;
 
 public class CuttingTableBuilder {
 
-    public ArrayList<CuttingTableColumn> cuttingTable;
-    private boolean isCompleted;
+    private HashSet<HashMap<Double,Integer>> cuttings;
 
     public CuttingTableBuilder(){
-        cuttingTable = new ArrayList<>();
+        cuttings = new HashSet<>();
     }
 
     public void buildTable(ArrayList<Double> inputProductSpec, OutputProductTypes outputProductTypes){
         for (Double inputProductWidth : inputProductSpec) {
-            for(int i = 0; i <outputProductTypes.getSize(); i++){
-                isCompleted = false;
-                CuttingTableColumn column = new CuttingTableColumn(inputProductWidth);
-                double waste = build(outputProductTypes,inputProductWidth,i, column);
-                column.setWaste(waste);
-                cuttingTable.add(column);
-            }
-        }
-        for (CuttingTableColumn col: cuttingTable
-             ) {
-            System.out.println(col.getCuttingOptionsForOutputTableSpec());
+                HashMap<Double,Integer> map = new HashMap<>();
+                int[] actualCounters = new int[outputProductTypes.getOutputProducts().size()];
+                build(outputProductTypes,inputProductWidth, 0.0, actualCounters, map);
         }
     }
 
-    private double build(OutputProductTypes outputProductTypes, double remainingInputProductWidth, int index, CuttingTableColumn column){
-        int counter = 0;
-        double outputProductWidth = outputProductTypes.getOutputProducts().get(index).getWidth();
-        double tempRemainingProductWidth;
-
-        while(true){
-            tempRemainingProductWidth = remainingInputProductWidth;
-            remainingInputProductWidth -= outputProductWidth;
-            if(remainingInputProductWidth < 0.0){
-                column.getCuttingOptionsForOutputTableSpec().put(outputProductWidth,counter);
-                if(index - 1 < 0){
-                    isCompleted = true;
-                    return tempRemainingProductWidth;
+    private boolean build(OutputProductTypes outputProductTypes,
+                          double inputProductWidth,
+                          double actualValue,
+                          int[] actualCounters,
+                          HashMap<Double,Integer> map){
+        boolean checker = false;
+        for(int i = 0; i <outputProductTypes.getSize(); i++){
+            double outputProductWidth = outputProductTypes.getOutputProducts().get(i).getWidth();
+            actualValue += outputProductWidth;
+            if(actualValue > inputProductWidth){
+                if(checker){
+                    return true;
                 }
-                index--;
-                double returnedValue = build(outputProductTypes, tempRemainingProductWidth, index, column);
-                if(isCompleted) {
-                    return returnedValue;
-                }
-
+                for(int j = 0; j <outputProductTypes.getSize(); j++)
+                    map.put(outputProductTypes.getOutputProducts().get(j).getWidth(), actualCounters[j]);
+                cuttings.add(map);
+                return true;
             }
-            counter++;
+            actualCounters[i]++;
+            HashMap<Double,Integer> mapCopy = new HashMap<>(map);
+            checker = build(outputProductTypes,inputProductWidth,actualValue,actualCounters.clone(),mapCopy);
         }
+        return checker;
+    }
+
+    public HashSet<HashMap<Double, Integer>> getCuttings() {
+        return cuttings;
     }
 }
