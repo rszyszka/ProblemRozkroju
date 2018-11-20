@@ -4,7 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="341.0" prefWidth="534.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ViewController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="446.0" prefWidth="534.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ViewController">
    <children>
       <TextField fx:id="material1" layoutX="14.0" layoutY="78.0" prefHeight="25.0" prefWidth="89.0" />
       <TextField fx:id="material2" layoutX="14.0" layoutY="113.0" prefHeight="25.0" prefWidth="89.0" />
@@ -21,5 +21,6 @@
       <Label layoutX="14.0" layoutY="14.0" text="Ilość materiałów" />
       <Label layoutX="138.0" layoutY="14.0" text="Ilość sztuk" />
       <Label layoutX="263.0" layoutY="43.0" text="Szerokość sztuki" />
+      <TextArea fx:id="textArea" layoutX="14.0" layoutY="178.0" prefHeight="261.0" prefWidth="505.0" />
    </children>
 </Pane>

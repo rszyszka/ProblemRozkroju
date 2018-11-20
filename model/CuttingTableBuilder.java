@@ -21,6 +21,10 @@ public class CuttingTableBuilder {
                 cuttingTable.add(column);
             }
         }
+        for (CuttingTableColumn col: cuttingTable
+             ) {
+            System.out.println(col.getCuttingOptionsForOutputTableSpec());
+        }
     }
 
     private double build(OutputProductTypes outputProductTypes, double remainingInputProductWidth, int index, CuttingTableColumn column){
