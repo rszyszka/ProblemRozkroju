@@ -16,7 +16,7 @@ public class CuttingTableBuilder {
                 cuttings = new HashSet<>();
                 HashMap<Double,Integer> map = new HashMap<>();
                 int[] actualCounters = new int[outputProductTypes.getOutputProducts().size()];
-                build(outputProductTypes,inputProductWidth, 0.0, actualCounters, map);
+                build2(outputProductTypes,inputProductWidth, 0.0, actualCounters, map, 0);
 
             for(HashMap<Double,Integer> m : cuttings){
                 double sum = 0.0;
@@ -33,10 +33,14 @@ public class CuttingTableBuilder {
                           double inputProductWidth,
                           double actualValue,
                           int[] actualCounters,
-                          HashMap<Double,Integer> map){
+                          HashMap<Double,Integer> map
+                            ,int depth){
         boolean checker = false;
+        depth++;
         for(int i = 0; i <outputProductTypes.getSize(); i++){
+            //i = i == outputProductTypes.getSize() ? i-1:i;
             double outputProductWidth = outputProductTypes.getOutputProducts().get(i).getWidth();
+            System.out.println("Depth: "+depth+"\tProductWidth: "+outputProductWidth+"\tActualValue: "+actualValue+"\tChecker: "+checker);
             actualValue += outputProductWidth;
             if(actualValue > inputProductWidth){
                 if(checker){
@@ -47,11 +51,41 @@ public class CuttingTableBuilder {
                 cuttings.add(map);
                 return true;
             }
-            actualCounters[i]++;
+            int[] clonedCounters = actualCounters.clone();
+            clonedCounters[i]++;
             HashMap<Double,Integer> mapCopy = new HashMap<>(map);
-            checker = build(outputProductTypes,inputProductWidth,actualValue,actualCounters.clone(),mapCopy);
+            checker = build(outputProductTypes,inputProductWidth,actualValue,clonedCounters,mapCopy,depth);
         }
-        return checker;
+        return false;
+    }
+
+    private boolean build2(OutputProductTypes outputProductTypes,
+                          double inputProductWidth,
+                          double actualValue,
+                          int[] actualCounters,
+                          HashMap<Double,Integer> map
+            ,int depth){
+        if(actualValue > inputProductWidth){
+            return true;
+        }
+        boolean el_added = false;
+        depth++;
+        for(int i = 0; i <outputProductTypes.getSize(); i++){
+            double outputProductWidth = outputProductTypes.getOutputProducts().get(i).getWidth();
+            int[] clonedCounters = actualCounters.clone();
+            clonedCounters[i]++;
+            HashMap<Double,Integer> mapCopy = new HashMap<>(map);
+            boolean func_status = build2(outputProductTypes,inputProductWidth,actualValue +outputProductWidth,clonedCounters,mapCopy,depth);
+            if(func_status) {
+                if (!el_added) {
+                    for (int j = 0; j < outputProductTypes.getSize(); j++)
+                        map.put(outputProductTypes.getOutputProducts().get(j).getWidth(), actualCounters[j]);
+                    cuttings.add(map);
+                }
+            }
+            el_added = true;
+        }
+        return false;
     }
 
     public ArrayList<CuttingTableColumn> getCuttingTable() {
