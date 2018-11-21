@@ -1,50 +1,40 @@
 package model;
 
-import javafx.scene.layout.ConstraintsBase;
 import org.apache.commons.math3.optim.PointValuePair;
 import org.apache.commons.math3.optim.linear.*;
+import org.apache.commons.math3.optim.nonlinear.scalar.GoalType;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 public class CuttingProblemSolver {
 
-    public static void solve(List<CuttingTableColumn> cuttingTable, OutputProductTypes outputProductTypes){
+    public static double[] solve(List<CuttingTableColumn> cuttingTable, OutputProductTypes outputProductTypes){
         List<Double> coefficients = new ArrayList<>();
         List<LinearConstraint> constraints = new ArrayList<>();
-        int index = 0;
-        System.out.println("\n");
-        for (CuttingTableColumn column: cuttingTable) {
-            coefficients.add(Math.round(column.getWaste()*100.0)/100.0);
+
+        for(OutputProduct outputProduct :outputProductTypes.getOutputProducts()){
             List<Double> constraintCoefficients = new ArrayList<>();
-            for(OutputProduct outputProduct : outputProductTypes.getOutputProducts()){
-                if(column.getCuttingOptionsForOutputTableSpec().containsKey(outputProduct.getWidth())) {
-                    double amount = column.getCuttingOptionsForOutputTableSpec().get(outputProduct.getWidth());
-                    constraintCoefficients.add(amount);
-                }else{
-                    constraintCoefficients.add(0.0);
-                }
+            for (CuttingTableColumn column: cuttingTable) {
+               double amount = column.getCuttingOptionsForOutputTableSpec().get(outputProduct.getWidth());
+               constraintCoefficients.add(amount);
             }
             double[] constraintsCoefficientsTable = convertDoubles(constraintCoefficients);
-            System.out.println(Arrays.toString(constraintsCoefficientsTable));
             LinearConstraint constraint = new LinearConstraint(constraintsCoefficientsTable,
                     Relationship.GEQ,
-                    outputProductTypes.getOutputProducts().get(index).getRequiredAmount());
+                    outputProduct.getRequiredAmount());
             constraints.add(constraint);
-            index = (index+1) % outputProductTypes.getOutputProducts().size();
+        }
+
+        for (CuttingTableColumn column: cuttingTable) {
+            coefficients.add(Math.round(column.getWaste()*100.0)/100.0);
         }
 
         LinearObjectiveFunction objectiveFunction = new LinearObjectiveFunction(convertDoubles(coefficients),0);
         LinearConstraintSet constraintSet = new LinearConstraintSet(constraints);
-        //System.out.println("\n");
-        //System.out.println(constraints.toString());
-        System.out.println(coefficients.toString());
 
-        //SimplexSolver simplexSolver = new SimplexSolver();
-        //PointValuePair pointValuePair = simplexSolver.optimize(objectiveFunction, constraintSet);
-        //return pointValuePair.getPoint();
+        SimplexSolver simplexSolver = new SimplexSolver();
+        PointValuePair pointValuePair = simplexSolver.optimize(objectiveFunction, constraintSet, GoalType.MINIMIZE, new NonNegativeConstraint(true));
+        return pointValuePair.getPoint();
     }
 
     private static double[] convertDoubles(List<Double> integers)
